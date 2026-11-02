@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d18">
+  <title>BTC Signal Center — Kalshi 15m</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#"><span class="brand-mark">₿</span><span>BTC <b>SIGNAL CENTER</b><small>KALSHI · 15 MINUTES</small></span></a>
+      <div class="top-right"><span class="live-dot"></span><span id="connection">CONNECTING</span><span class="mono" id="clock">--:--:-- MST</span></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div><div class="eyebrow">MARKET INTELLIGENCE / LIVE MONITOR</div><h1>Trade the signal.<br><em>Not the noise.</em></h1><p>Live BTC reference price, Kalshi order book and an experimental probability model. You stay in control of every trade.</p></div>
+        <div class="market-pill"><span class="live-dot"></span><div><small>ACTIVE SERIES</small><b>KXBTC15M</b></div><span class="pill-divider"></span><div><small>WINDOW CLOSES IN</small><b id="countdown">--:--</b></div></div>
+      </section>
+
+      <section class="price-grid">
+        <article class="panel price-panel"><div class="panel-head"><span>BITCOIN SPOT REFERENCE</span><span class="source-tag">COINBASE · BTC-USD</span></div><div class="big-price" id="btc-price">—</div><div class="price-change" id="btc-change">Waiting for live ticks</div><div class="sparkline-wrap"><canvas id="sparkline" height="68"></canvas></div></article>
+        <article class="panel strike-panel"><div class="panel-head"><span>KALSHI MARKET</span><span class="source-tag" id="market-status">LOADING</span></div><div class="market-question" id="market-title">Finding the current Bitcoin 15-minute market…</div><div class="strike-value" id="strike">—</div><div class="strike-label">MARKET STRIKE / FLOOR STRIKE</div><div class="market-meta"><span id="market-ticker">Ticker: —</span><span id="market-close">Close: —</span></div></article>
+      </section>
+
+      <section class="section-head"><div><div class="eyebrow">01 / MODEL OUTPUT</div><h2>Live probabilities</h2></div><span class="muted tiny" id="model-updated">Awaiting data</span></section>
+      <section class="prob-grid">
+        <article class="panel probability-card yes-card"><div class="prob-top"><span class="side-label"><i class="yes-dot"></i> YES · ABOVE STRIKE</span><span class="model-label">MODEL ESTIMATE</span></div><div class="prob-number" id="yes-prob">—<small>%</small></div><div class="prob-track"><span id="yes-bar"></span></div><div class="prob-foot"><span>Kalshi implied: <b id="yes-market-prob">—</b></span><span id="yes-edge">Edge: —</span></div></article>
+        <article class="panel probability-card no-card"><div class="prob-top"><span class="side-label"><i class="no-dot"></i> NO · AT/BELOW STRIKE</span><span class="model-label">MODEL ESTIMATE</span></div><div class="prob-number" id="no-prob">—<small>%</small></div><div class="prob-track"><span id="no-bar"></span></div><div class="prob-foot"><span>Kalshi implied: <b id="no-market-prob">—</b></span><span id="no-edge">Edge: —</span></div></article>
+      </section>
+
+      <section class="section-head"><div><div class="eyebrow">02 / ACTIONABLE SETUP</div><h2>Buy & sell guidance</h2></div><span class="muted tiny">Indicative · manual execution only</span></section>
+      <section class="panel signal-panel">
+        <div class="signal-main"><div class="signal-status" id="signal-badge">WAITING FOR DATA</div><h3 id="signal-title">Calculating opportunity…</h3><p id="signal-reason">The model needs a live BTC price, current Kalshi market and order book before it can evaluate an entry.</p></div>
+        <div class="trade-levels">
+          <div><small>BEST AVAILABLE ASK</small><b id="entry-now">—</b></div>
+          <div><small>MAX ENTRY PRICE</small><b id="entry-max">—</b></div>
+          <div><small>TAKE-PROFIT TARGET</small><b id="take-profit">—</b></div>
+          <div><small>STOP-LOSS LEVEL</small><b id="stop-loss">—</b></div>
+        </div>
+        <div class="signal-disclaimer" id="signal-disclaimer">No signal until live inputs are available. Model probabilities are experimental and not yet calibrated; never treat them as guaranteed odds.</div>
+      </section>
+
+      <section class="data-grid">
+        <article class="panel"><div class="panel-head"><span>ORDER BOOK SNAPSHOT</span><span class="muted tiny" id="book-time">—</span></div><div class="book-columns"><div><small>YES</small><b id="yes-bid">—</b><span>Best bid</span><b id="yes-ask">—</b><span>Implied ask</span></div><div><small>NO</small><b id="no-bid">—</b><span>Best bid</span><b id="no-ask">—</b><span>Implied ask</span></div></div><p class="micro-note">Kalshi's public order book reports bids. The opposite side's ask is derived as $1.00 minus the opposing best bid.</p></article>
+        <article class="panel"><div class="panel-head"><span>MODEL CONDITIONS</span><span class="muted tiny">LIVE INPUTS</span></div><div class="condition-list"><div><span>BTC vs strike</span><b id="distance">—</b></div><div><span>1-minute momentum</span><b id="momentum">—</b></div><div><span>Observed 1m volatility</span><b id="volatility">—</b></div><div><span>Time remaining</span><b id="time-left">—</b></div><div><span>Data quality</span><b id="data-quality">Waiting</b></div></div></article>
+      </section>
+
+      <section class="section-head"><div><div class="eyebrow">03 / YOUR JOURNAL</div><h2>Performance tracker</h2></div><span class="muted tiny">Saved in this browser only</span></section>
+      <section class="panel journal-panel">
+        <form id="trade-form" class="trade-form">
+          <label>Side<select id="trade-side"><option value="YES">YES</option><option value="NO">NO</option></select></label>
+          <label>Entry price (¢)<input id="trade-entry" type="number" min="1" max="99" step="1" placeholder="e.g. 42" required></label>
+          <label>Exit price (¢)<input id="trade-exit" type="number" min="1" max="99" step="1" placeholder="e.g. 58" required></label>
+          <label>Contracts<input id="trade-size" type="number" min="1" step="1" value="1" required></label>
+          <button type="submit">LOG CLOSED TRADE</button>
+        </form>
+        <div class="stats-row"><div><small>TRADES LOGGED</small><b id="stat-count">0</b></div><div><small>WIN RATE</small><b id="stat-winrate">—</b></div><div><small>NET P/L</small><b id="stat-pnl">$0.00</b></div><div><small>AVG P/L / TRADE</small><b id="stat-avg">$0.00</b></div></div>
+        <div class="table-wrap"><table><thead><tr><th>TIME</th><th>SIDE</th><th>ENTRY</th><th>EXIT</th><th>QTY</th><th>NET P/L*</th><th></th></tr></thead><tbody id="trade-rows"><tr><td colspan="7" class="empty">No trades logged yet. Record a closed trade above.</td></tr></tbody></table></div>
+        <p class="micro-note">*P/L is before Kalshi fees and taxes. Trade journal is stored locally in this browser; it is not synced across devices.</p>
+      </section>
+
+      <footer><span>BTC SIGNAL CENTER · READ-ONLY</span><span>Market data can lag. Verify every price on Kalshi before acting.</span><button id="refresh">REFRESH DATA ↻</button></footer>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
